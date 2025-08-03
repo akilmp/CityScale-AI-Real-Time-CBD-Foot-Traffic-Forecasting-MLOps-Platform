@@ -1,0 +1,11 @@
+source:
+  name: weather_data
+  connector: http
+  configuration:
+    base_url: https://api.weather.example.com
+    api_key: ${WEATHER_API_KEY}
+    start_date: "2023-01-01T00:00:00Z"
+    location: YOUR_CITY
+  incremental_sync:
+    cursor_field: observation_time
+    replication_method: incremental
