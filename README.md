@@ -152,14 +152,17 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 cp .env.sample .env  # add Snowflake creds & W&B API key
 
-# 2. Start Airbyte (compose)
+# 2. Pull sample data (requires dvc)
+dvc pull
+
+# 3. Start Airbyte (compose)
 docker compose -f airbyte/docker-compose.yaml up -d
 
-# 3. Run Dagster dev server
+# 4. Run Dagster dev server
 export DAGSTER_HOME=$PWD/dagster_home
 dagster dev -f dags/jobs/local_dev.py &
 
-# 4. Trigger sample ETL + training
+# 5. Trigger sample ETL + training
 python dags/jobs/run_local.py --sample
 ```
 
@@ -187,6 +190,7 @@ helmfile -f infra/helmfile/ray.yaml apply
 1. **Airbyte Connections**: each API → Snowflake RAW table (incremental + append).
 2. Nightly Dagster job exports RAW tables to Parquet → commits to DVC; tag = ingestion date.
 3. DVC pushes to S3; Git hash stored in Dagster metadata for lineage.
+4. Sample datasets for local development live in `data/`; run `dvc pull` to download or `dvc add data` to version new snapshots.
 
 ---
 
