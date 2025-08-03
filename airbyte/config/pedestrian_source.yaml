@@ -2,9 +2,9 @@ source:
   name: pedestrian_counts
   connector: http
   configuration:
-    base_url: https://data.melbourne.vic.gov.au/resource/b2ak-trbp.json
+    base_url: https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Automatic_Hourly_Pedestrian_Count/FeatureServer/0/query?where=1%3D1&outFields=*&f=json
     app_token: ${PEDESTRIAN_API_TOKEN}
     start_date: "2023-01-01T00:00:00Z"
   incremental_sync:
-    cursor_field: date_time
+    cursor_field: Date
     replication_method: incremental
