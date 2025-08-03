@@ -2,22 +2,36 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: example-rollout
+  name: foot-traffic-rollout
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: example
+      app: foot-traffic
   template:
     metadata:
       labels:
-        app: example
+        app: foot-traffic
     spec:
       containers:
-        - name: example
-          image: nginx:1.25
+        - name: foot-traffic
+          image: ${IMAGE}
+          env:
+            - name: BENTOML_PORT
+              value: "3000"
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 3000
+            - name: metrics
+              containerPort: 3001
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
   strategy:
     canary:
       steps:
