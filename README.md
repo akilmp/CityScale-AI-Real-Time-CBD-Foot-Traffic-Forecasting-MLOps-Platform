@@ -150,9 +150,11 @@ cityscale-ai/
 # 1. Clone and set up env
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.sample .env  # add Snowflake creds & W&B API key
 
-# 2. Start Airbyte (compose)
+# 2. Pull sample data (requires dvc)
+dvc pull
+
+# 3. Start Airbyte (compose)
 docker compose -f airbyte/docker-compose.yaml up -d
 
 # 3. Populate required environment variables
@@ -161,6 +163,7 @@ docker compose -f airbyte/docker-compose.yaml up -d
 # export SNOWFLAKE_PASSWORD=<password>
 # export WANDB_API_KEY=<api-key>
 # export WHYLABS_API_KEY=<api-key>
+
 
 # 4. Run Dagster dev server
 export DAGSTER_HOME=$PWD/dagster_home
@@ -194,6 +197,7 @@ helmfile -f infra/helmfile/ray.yaml apply
 1. **Airbyte Connections**: each API → Snowflake RAW table (incremental + append).
 2. Nightly Dagster job exports RAW tables to Parquet → commits to DVC; tag = ingestion date.
 3. DVC pushes to S3; Git hash stored in Dagster metadata for lineage.
+4. Sample datasets for local development live in `data/`; run `dvc pull` to download or `dvc add data` to version new snapshots.
 
 ---
 

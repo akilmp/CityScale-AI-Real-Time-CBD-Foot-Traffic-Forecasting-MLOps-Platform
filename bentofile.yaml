@@ -2,8 +2,10 @@ service: models.serving.service:svc
 labels:
   owner: ml-team
   project: foot-traffic
+models:
+  - foot_traffic:latest
 python:
   packages:
     - bentoml>=1.1.6
-    - scikit-learn
+    - torch
     - pydantic

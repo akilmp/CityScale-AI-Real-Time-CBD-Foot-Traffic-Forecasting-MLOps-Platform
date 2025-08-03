@@ -2,10 +2,10 @@ source:
   name: weather_data
   connector: http
   configuration:
-    base_url: https://api.weather.example.com
-    api_key: ${WEATHER_API_KEY}
+    base_url: https://api.openweathermap.org/data/2.5/weather
+    api_key: ${OPENWEATHER_API_KEY}
     start_date: "2023-01-01T00:00:00Z"
-    location: YOUR_CITY
+    city: Sydney,AU
   incremental_sync:
-    cursor_field: observation_time
+    cursor_field: dt
     replication_method: incremental
