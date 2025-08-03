@@ -12,7 +12,7 @@ This script walks through a six‑minute demo of the platform. Follow it while r
 1. **Intro (0:00‑0:30)** – Introduce CityScale AI and what the demo will show.
 2. **Live heat‑map (0:30‑1:00)** – Share the Grafana panel that visualises current pedestrian counts.
 3. **Inject festival (1:00‑1:45)** – Insert a mock event via Dagster and show the WhyLabs drift alert in Slack.
-4. **Dagster retrain (1:45‑2:30)** – Trigger `python dags/jobs/run_local.py --sample` and browse the Dagster UI as the job runs.
+4. **Dagster retrain (1:45‑2:30)** – Trigger `python dags/jobs/pipelines.py` and browse the Dagster UI as the job runs.
 5. **W&B sweep (2:30‑3:00)** – Open the latest Weights & Biases sweep and highlight top metrics.
 6. **Rollout (3:00‑4:00)** – Use the Argo Rollouts UI to show a canary progressing from 5 % to 100 %.
 7. **Autoscale (4:00‑5:00)** – Run `kubectl top pod` to show Ray Serve scaling.
