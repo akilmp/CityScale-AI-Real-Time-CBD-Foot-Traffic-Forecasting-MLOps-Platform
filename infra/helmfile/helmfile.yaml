@@ -1,0 +1,26 @@
+repositories:
+  - name: kuberay
+    url: https://ray-project.github.io/kuberay-helm/
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+releases:
+  - name: ray-cluster
+    namespace: ray
+    chart: kuberay/kuberay
+    values:
+      - ray.yaml
+
+  - name: prometheus
+    namespace: monitoring
+    chart: prometheus-community/prometheus
+    values:
+      - monitoring.yaml
+
+  - name: grafana
+    namespace: monitoring
+    chart: grafana/grafana
+    values:
+      - monitoring.yaml
