@@ -1,23 +1,27 @@
 """Model training Dagster assets."""
 
-import pandas as pd
-from dagster import asset
-from sklearn.linear_model import LinearRegression
+from dagster import Output, asset
+import bentoml
+import torch
 
 
-@asset
-def trained_model(tecton_features: pd.DataFrame) -> LinearRegression:
-    """Train a model using the provided features.
+@asset(required_resource_keys={"bentoml_model_tag"})
+def trained_model(context) -> torch.nn.Module:
+    """Load the BentoML-registered PyTorch model.
 
-    The final column of ``tecton_features`` is treated as the prediction target
-    while all preceding columns serve as features.
+    The model is trained separately in ``train.py`` and saved to BentoML's model
+    store. This asset retrieves the latest registered model and emits metadata
+    such as the model tag and storage path for downstream evaluation or rollout
+    steps.
     """
 
-    if tecton_features.shape[1] < 2:
-        raise ValueError("Expected at least one feature column and one target column")
+    tag = context.resources.bentoml_model_tag
+    bento_model = bentoml.pytorch.get(tag)
+    model = bentoml.pytorch.load_model(bento_model)
 
-    X = tecton_features.iloc[:, :-1]
-    y = tecton_features.iloc[:, -1]
-    model = LinearRegression()
-    model.fit(X, y)
-    return model
+    metadata = {
+        "bento_model_tag": str(bento_model.tag),
+        "bento_model_path": bento_model.path,
+    }
+
+    return Output(model, metadata=metadata)
