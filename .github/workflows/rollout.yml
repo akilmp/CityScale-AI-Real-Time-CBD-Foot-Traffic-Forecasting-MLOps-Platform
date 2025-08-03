@@ -28,10 +28,10 @@ jobs:
 
       - name: Update rollout manifest
         run: |
-          sed -i "s@image:.*@image: $IMAGE@" argo-rollout.yaml
+          sed -i "s@image:.*@image: $IMAGE@" k8s/argo-rollout.yaml
 
       - name: Apply rollout
-        run: kubectl apply -f argo-rollout.yaml -n $NAMESPACE
+        run: kubectl apply -f k8s/argo-rollout.yaml -n $NAMESPACE
 
       - name: Promote rollout
         run: kubectl argo rollouts promote $ROLLOUT_NAME -n $NAMESPACE
