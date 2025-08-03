@@ -18,11 +18,11 @@ except Exception:  # pragma: no cover - Tecton may not be installed
 cbd = Entity(name="cbd", join_keys=["cbd_id"], description="Central business district identifier")  # type: ignore
 
 # Data sources ---------------------------------------------------------------------------
-# These sources are placeholders and should be updated with real data connectors.
+# Batch data in S3 is used to populate each feature view.
 foot_traffic_source = batch_source(  # type: ignore
     name="foot_traffic_source",
     batch_config=FileConfig(
-        uri="s3://placeholder/foot_traffic/*.parquet",
+        uri="s3://cityscale-data/foot_traffic/*.parquet",
         file_format="parquet",
     ),
     timestamp_field="timestamp",
@@ -31,7 +31,7 @@ foot_traffic_source = batch_source(  # type: ignore
 weather_source = batch_source(  # type: ignore
     name="weather_source",
     batch_config=FileConfig(
-        uri="s3://placeholder/weather/*.parquet",
+        uri="s3://cityscale-data/weather/*.parquet",
         file_format="parquet",
     ),
     timestamp_field="timestamp",
@@ -40,7 +40,7 @@ weather_source = batch_source(  # type: ignore
 events_source = batch_source(  # type: ignore
     name="events_source",
     batch_config=FileConfig(
-        uri="s3://placeholder/events/*.parquet",
+        uri="s3://cityscale-data/events/*.parquet",
         file_format="parquet",
     ),
     timestamp_field="event_time",
@@ -49,7 +49,7 @@ events_source = batch_source(  # type: ignore
 holidays_source = batch_source(  # type: ignore
     name="holidays_source",
     batch_config=FileConfig(
-        uri="s3://placeholder/holidays/*.parquet",
+        uri="s3://cityscale-data/holidays/*.parquet",
         file_format="parquet",
     ),
     timestamp_field="date",
