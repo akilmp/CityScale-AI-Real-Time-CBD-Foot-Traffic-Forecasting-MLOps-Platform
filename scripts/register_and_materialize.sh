@@ -7,9 +7,17 @@
 # The start and end times should be provided in ISO-8601 format, e.g.
 #   scripts/register_and_materialize.sh 2024-01-01T00:00:00Z 2024-01-02T00:00:00Z
 #
-# This script requires the Tecton CLI to be installed and configured with
-# appropriate credentials (see https://docs.tecton.ai). It should be run from
-# the root of the repository.
+# Steps performed:
+#   1. `tecton apply` registers or updates the feature definitions in the
+#      active workspace.
+#   2. Each feature view is backfilled by calling `tecton materialize` for the
+#      provided time window.
+#
+# Prerequisites:
+#   * The Tecton CLI must be installed and configured with credentials
+#     (`tecton login` and `tecton workspace use <workspace>`).
+#   * Run this script from the root of the repository so that the feature
+#     definitions under `features/` are discovered.
 set -euo pipefail
 
 if [[ $# -ne 2 ]]; then

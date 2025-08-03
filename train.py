@@ -69,6 +69,28 @@ def main() -> None:
     print("Best parameters:", best.params)
     print("Best value:", best.value)
 
+    # Train a final model using the best hyperparameters and save with BentoML
+    import bentoml
+
+    datamodule = FootTrafficDataModule(
+        train_path=args.train_path,
+        val_path=args.val_path,
+        test_path=args.test_path,
+        batch_size=args.batch_size,
+    )
+
+    final_model = FootTrafficModel(
+        hidden_dim=best.params["hidden_dim"],
+        lr=best.params["lr"],
+    )
+
+    trainer = pl.Trainer(max_epochs=args.max_epochs, enable_checkpointing=False)
+    trainer.fit(final_model, datamodule=datamodule)
+
+    # Save the trained PyTorch model to BentoML's model store
+    final_model.model.eval()
+    bentoml.pytorch.save_model("foot_traffic", final_model.model)
+
 
 if __name__ == "__main__":
     main()

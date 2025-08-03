@@ -2,10 +2,10 @@ source:
   name: city_events
   connector: http
   configuration:
-    base_url: https://api.events.example.com
-    api_key: ${EVENT_API_KEY}
+    base_url: https://app.ticketmaster.com/discovery/v2/events.json
+    api_key: ${TICKETMASTER_API_KEY}
     start_date: "2023-01-01T00:00:00Z"
-    city: YOUR_CITY
+    city: Sydney,AU
   incremental_sync:
-    cursor_field: updated_at
+    cursor_field: dates.start.dateTime
     replication_method: incremental
