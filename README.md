@@ -103,7 +103,7 @@ npx @drawio/cli docs/architecture.drawio -o docs/architecture.png
 
 | Feed                                                  | Frequency         | Access         | Notes                           |
 | ----------------------------------------------------- | ----------------- | -------------- | ------------------------------- |
-| Sydney Pedestrian Counters (City of Sydney Open Data) | Every 15 min JSON | Public API key | \~60 counters                   |
+| Sydney Pedestrian Counters (City of Sydney Open Data) | Hourly JSON        | API token (`PEDESTRIAN_API_TOKEN`) | \~60 counters                   |
 | BOM Weather API (Observations + Forecast)             | Hourly REST       | Public         | Temp, rain, wind                |
 | Ticketek / Eventbrite scraping (CBD events)           | Nightly CSV       | Scraper + cron | Event type, expected attendance |
 | NSW Public Holidays                                   | Annual CSV        | Static         | Used for holiday flag feature   |
@@ -168,6 +168,7 @@ docker compose -f airbyte/docker-compose.yaml up -d
 # export SNOWFLAKE_ACCOUNT=<account>
 # export SNOWFLAKE_USER=<user>
 # export SNOWFLAKE_PASSWORD=<password>
+# export PEDESTRIAN_API_TOKEN=<token>
 # export WANDB_API_KEY=<api-key>
 # export WHYLABS_API_KEY=<api-key>
 
