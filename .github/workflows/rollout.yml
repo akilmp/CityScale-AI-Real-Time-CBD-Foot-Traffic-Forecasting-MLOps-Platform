@@ -26,12 +26,11 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
 
-      - name: Update rollout manifest
-        run: |
-          sed -i "s@image:.*@image: $IMAGE@" k8s/argo-rollout.yaml
+      - name: Render rollout manifest
+        run: envsubst < k8s/argo-rollout.yaml > rendered-rollout.yaml
 
       - name: Apply rollout
-        run: kubectl apply -f k8s/argo-rollout.yaml -n $NAMESPACE
+        run: kubectl apply -f rendered-rollout.yaml -n $NAMESPACE
 
       - name: Promote rollout
         run: kubectl argo rollouts promote $ROLLOUT_NAME -n $NAMESPACE
