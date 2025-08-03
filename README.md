@@ -171,6 +171,9 @@ docker compose -f airbyte/docker-compose.yaml up -d
 # export PEDESTRIAN_API_TOKEN=<token>
 # export WANDB_API_KEY=<api-key>
 # export WHYLABS_API_KEY=<api-key>
+# export WHYLABS_ORG_ID=<org-id>
+# export WHYLABS_DATASET_ID=<dataset-id>
+# export SLACK_WEBHOOK_URL=<slack-webhook-url>
 
 
 # 4. Run Dagster dev server
@@ -180,6 +183,8 @@ dagster dev -f dags/jobs/local_dev.py &
 # 5. Trigger sample ETL + training
 python dags/jobs/pipelines.py
 ```
+
+In CI workflows, set the same environment variables as repository secrets and reference them in the workflow `env` section.
 
 ---
 
