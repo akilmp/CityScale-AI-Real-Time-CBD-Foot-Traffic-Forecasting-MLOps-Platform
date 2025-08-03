@@ -8,6 +8,7 @@ destination:
     database: ${SNOWFLAKE_DATABASE}
     schema: ${SNOWFLAKE_SCHEMA}
     warehouse: ${SNOWFLAKE_WAREHOUSE}
+    role: ${SNOWFLAKE_ROLE}
   incremental_sync:
     destination_sync_mode: append_dedup
     primary_key: id

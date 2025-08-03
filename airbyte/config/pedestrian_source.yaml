@@ -2,9 +2,9 @@ source:
   name: pedestrian_counts
   connector: http
   configuration:
-    base_url: https://api.example.com/pedestrian
-    api_key: ${PEDESTRIAN_API_KEY}
+    base_url: https://data.melbourne.vic.gov.au/resource/b2ak-trbp.json
+    app_token: ${PEDESTRIAN_API_TOKEN}
     start_date: "2023-01-01T00:00:00Z"
   incremental_sync:
-    cursor_field: timestamp
+    cursor_field: date_time
     replication_method: incremental

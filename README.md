@@ -150,16 +150,27 @@ cityscale-ai/
 # 1. Clone and set up env
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.sample .env  # add Snowflake creds & W&B API key
 
-# 2. Start Airbyte (compose)
-docker compose -f airbyte/docker-compose.yaml up -d
+# 2. Set API and Snowflake credentials
+export PEDESTRIAN_API_TOKEN="<your_socrata_token>"
+export OPENWEATHER_API_KEY="<your_openweather_key>"
+export TICKETMASTER_API_KEY="<your_ticketmaster_key>"
+export SNOWFLAKE_ACCOUNT="<account>"
+export SNOWFLAKE_USER="<username>"
+export SNOWFLAKE_PASSWORD="<password>"
+export SNOWFLAKE_DATABASE="<database>"
+export SNOWFLAKE_SCHEMA="<schema>"
+export SNOWFLAKE_WAREHOUSE="<warehouse>"
+export SNOWFLAKE_ROLE="<role>"
 
-# 3. Run Dagster dev server
+# 3. Start Airbyte (compose)
+docker compose -f airbyte/docker-compose.yaml up
+
+# 4. Run Dagster dev server
 export DAGSTER_HOME=$PWD/dagster_home
 dagster dev -f dags/jobs/local_dev.py &
 
-# 4. Trigger sample ETL + training
+# 5. Trigger sample ETL + training
 python dags/jobs/run_local.py --sample
 ```
 
