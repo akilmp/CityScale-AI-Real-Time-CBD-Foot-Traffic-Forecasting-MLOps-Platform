@@ -1,10 +1,17 @@
 groups:
   - name: training-serving-alerts
     rules:
-      - alert: HighErrorRate
-        expr: rate(http_requests_total{status="500"}[5m]) > 0
+      - alert: TrainingServiceDown
+        expr: up{job="training"} == 0
         for: 1m
         labels:
           severity: page
         annotations:
-          summary: "High error rate detected"
+          summary: "Training service is down"
+      - alert: ServingServiceDown
+        expr: up{job="serving"} == 0
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: "Serving service is down"
