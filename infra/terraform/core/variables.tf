@@ -37,3 +37,18 @@ variable "cluster_version" {
   description = "EKS Kubernetes version"
   type        = string
 }
+
+variable "cluster_iam_role_arn" {
+  description = "Existing IAM role ARN for the EKS control plane"
+  type        = string
+}
+
+variable "node_iam_role_arn" {
+  description = "IAM role ARN for EKS managed node groups"
+  type        = string
+}
+
+variable "node_groups" {
+  description = "Map of EKS managed node group configurations"
+  type        = any
+}

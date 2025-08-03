@@ -6,6 +6,16 @@ public_subnets     = ["10.0.1.0/24", "10.0.2.0/24"]
 private_subnets    = ["10.0.3.0/24", "10.0.4.0/24"]
 cluster_name       = "example-eks"
 cluster_version    = "1.29"
+cluster_iam_role_arn = "arn:aws:iam::123456789012:role/EKSClusterRole"
+node_iam_role_arn    = "arn:aws:iam::123456789012:role/EKSNodeRole"
+node_groups = {
+  default = {
+    desired_size   = 2
+    max_size       = 3
+    min_size       = 1
+    instance_types = ["t3.medium"]
+  }
+}
 
 data_bucket_name   = "example-data-bucket"
 snowflake_account  = "abc12345"
