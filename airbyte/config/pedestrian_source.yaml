@@ -1,0 +1,10 @@
+source:
+  name: pedestrian_counts
+  connector: http
+  configuration:
+    base_url: https://api.example.com/pedestrian
+    api_key: ${PEDESTRIAN_API_KEY}
+    start_date: "2023-01-01T00:00:00Z"
+  incremental_sync:
+    cursor_field: timestamp
+    replication_method: incremental
