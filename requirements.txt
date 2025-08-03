@@ -1,0 +1,13 @@
+dagster
+pandas
+scikit-learn
+torch
+pytorch-lightning
+optuna
+wandb
+bentoml
+dvc[boto3]
+flake8
+pytest
+PyYAML
+whylogs

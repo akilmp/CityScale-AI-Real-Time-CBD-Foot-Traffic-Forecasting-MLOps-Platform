@@ -126,11 +126,11 @@ cityscale-ai/
 ├── models/
 │   ├── lightning/
 │   │   ├── datamodule.py
-│   │   ├── model.py
-│   │   └── train.py
+│   │   └── model.py
 │   └── serving/
 │       ├── service.py
 │       └── bentofile.yaml
+├── train.py
 ├── k8s/
 │   ├── ray-cluster.yaml
 │   └── argo-rollout.yaml
@@ -156,7 +156,7 @@ cityscale-ai/
 ```bash
 # 1. Clone and set up env
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
 # 2. Pull sample data (requires dvc)
 dvc pull
@@ -178,7 +178,7 @@ export DAGSTER_HOME=$PWD/dagster_home
 dagster dev -f dags/jobs/local_dev.py &
 
 # 5. Trigger sample ETL + training
-python dags/jobs/run_local.py --sample
+python dags/jobs/pipelines.py
 ```
 
 ---
