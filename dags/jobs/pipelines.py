@@ -1,4 +1,4 @@
-from dagster import Definitions, define_asset_job, load_assets_from_modules
+from dagster import Definitions, ResourceDefinition, define_asset_job, load_assets_from_modules
 
 from dags.assets import clean_assets, model_train, raw_assets, tecton_features
 from dags.assets.raw_assets import AirbyteOutput
@@ -19,6 +19,7 @@ defs = Definitions(
     resources={
         "airbyte_output": AirbyteOutput(),
         "tecton": TectonClient(),
+        "bentoml_model_tag": ResourceDefinition.hardcoded_resource("foot_traffic:latest"),
     },
 )
 
