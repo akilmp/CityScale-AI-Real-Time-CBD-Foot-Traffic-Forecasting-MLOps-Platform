@@ -23,5 +23,16 @@ module "vpc" {
 
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
-  # Additional EKS configuration will be added here
+
+  name               = var.cluster_name
+  kubernetes_version = var.cluster_version
+  iam_role_arn       = var.cluster_iam_role_arn
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  eks_managed_node_groups = {
+    for name, cfg in var.node_groups :
+    name => merge(cfg, { iam_role_arn = var.node_iam_role_arn })
+  }
 }
