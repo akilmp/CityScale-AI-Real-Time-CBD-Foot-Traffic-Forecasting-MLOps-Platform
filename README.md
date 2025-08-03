@@ -157,6 +157,14 @@ dvc pull
 # 3. Start Airbyte (compose)
 docker compose -f airbyte/docker-compose.yaml up -d
 
+# 3. Populate required environment variables
+# export SNOWFLAKE_ACCOUNT=<account>
+# export SNOWFLAKE_USER=<user>
+# export SNOWFLAKE_PASSWORD=<password>
+# export WANDB_API_KEY=<api-key>
+# export WHYLABS_API_KEY=<api-key>
+
+
 # 4. Run Dagster dev server
 export DAGSTER_HOME=$PWD/dagster_home
 dagster dev -f dags/jobs/local_dev.py &
