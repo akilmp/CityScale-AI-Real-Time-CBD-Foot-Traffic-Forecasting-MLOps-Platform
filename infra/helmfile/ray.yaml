@@ -1,0 +1,9 @@
+image:
+  tag: latest
+head:
+  resources:
+    limits:
+      cpu: "1"
+      memory: "1Gi"
+worker:
+  replicas: 1
