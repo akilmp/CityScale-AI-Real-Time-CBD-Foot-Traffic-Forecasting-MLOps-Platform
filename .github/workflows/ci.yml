@@ -28,9 +28,10 @@ jobs:
       - name: Unit tests
         run: pytest
 
-      - name: DVC checks
+      - name: DVC pull and checks
         run: |
           dvc doctor
+          dvc pull data.dvc || true
           dvc status || true
 
       - name: Login to registry

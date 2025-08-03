@@ -205,7 +205,18 @@ helmfile -f infra/helmfile/ray.yaml apply
 1. **Airbyte Connections**: each API → Snowflake RAW table (incremental + append).
 2. Nightly Dagster job exports RAW tables to Parquet → commits to DVC; tag = ingestion date.
 3. DVC pushes to S3; Git hash stored in Dagster metadata for lineage.
-4. Sample datasets for local development live in `data/`; run `dvc pull` to download or `dvc add data` to version new snapshots.
+4. Sample datasets for local development live in `data/`; run `dvc pull` to download or `dvc add data` to version new snapshots. A typical workflow:
+
+```bash
+# fetch the latest example data
+dvc pull data.dvc
+
+# add a new snapshot
+dvc add data
+git add data.dvc data/<your_file>
+git commit -m "Add data snapshot"
+dvc push
+```
 
 ---
 
