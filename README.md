@@ -56,6 +56,13 @@ Event Feed CSV ──┘                                   │
      WhyLabs drift + Prometheus latency ───► Slack #cityscale‑alerts
 ```
 
+The diagram above is maintained in [docs/architecture.drawio](docs/architecture.drawio).
+To export it to PNG for slides or docs:
+
+```bash
+npx @drawio/cli docs/architecture.drawio -o docs/architecture.png
+```
+
 ---
 
 ## Key Competencies & Their Implementation
@@ -273,6 +280,10 @@ helmfile -f infra/helmfile/ray.yaml apply
 | Rollout         | 3:00‑4:00 | Argo Rollouts UI + Kiali |
 | Autoscale       | 4:00‑5:00 | kubectl top pod          |
 | Outro           | 5:00‑6:00 | Cost slide & repo link   |
+
+A step‑by‑step narration lives in [docs/demo_script.md](docs/demo_script.md).
+Start the local stack as described in [Local Development Environment](#local-development-environment)
+and follow the script while recording.
 
 Record 1440p\@60 fps; OBS profile saved to `docs/obs/cityscale.json`.
 
