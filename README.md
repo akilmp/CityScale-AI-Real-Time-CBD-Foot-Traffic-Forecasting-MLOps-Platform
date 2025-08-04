@@ -334,7 +334,3 @@ Record 1440p\@60 fps; OBS profile saved to `docs/obs/cityscale.json`.
 * Dagster Asset Graph patterns – Dagster blog 2025
 * BentoML 1.x best practices – BentoML docs 2025
 * WhyLabs Open Source SDK – 2024
-
----
-
-*Last updated: 3 Aug 2025*
